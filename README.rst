@@ -7,7 +7,7 @@ ENVI Py for ArcGIS
 Installation
 ============
 
-Install envipyarc using pip::
+Install ENVI Py for ArcGIS using pip::
 
     pip install envipyarc
 
