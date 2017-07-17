@@ -161,8 +161,8 @@ Now, construct a list of tasks to add to the toolbox::
 Next, instantiate a GPToolbox class for creating a toolbox::
 
     >>> from envipyengine import GPToolbox
-    >>> envi_toolbox = GPToolbox()
-    >>> toolbox_file = envi_toolbox.create_toolbox(task_list, 'c:\\my_envi_tools')
+    >>> envi_toolbox = GPToolbox(task_list)
+    >>> toolbox_file = envi_toolbox.create_toolbox('c:\\my_envi_tools')
 
 The create_toolbox method returns the filename of the toolbox, which can then be used by arcpy to import the toolbox::
 
@@ -173,7 +173,7 @@ Run the toolbox.
 
     >>> input_raster = 'C:/Program Files/Harris/ENVI54/data/qb_boulder_msi'
     >>> index = 'Normalized Difference Vegetation Index'
-    >>> result = arcpy.SpectralIndex_ENVI(input_raster,index)
+    >>> result = arcpy.SpectralIndex_envi(input_raster,index)
     >>> print(result)
 
 
