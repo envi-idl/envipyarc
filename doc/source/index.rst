@@ -25,9 +25,11 @@ For ArcMap
 ----------
 
 * Launch a windows command prompt in administrator module
-* Issue following commands:
-  >>> cd c:\\python27\\ArcGIS10.5\\Scripts
-  >>> pip install envipyarc
+* Issue following commands::
+
+    $ cd c:\Python27\ArcGIS10.5\Scripts
+    $ pip install envipyarc
+
 * Close the windows command prompt
 * Launch ArcMap
 * Navigate in the Catalog window to Toolboxes |rarr| System Toolboxes |rarr| ENVI Management Tools.pyt |rarr| Configure ENVI Environment.  Note: If ENVI Management Tools.pyt does not appear in System Toolboxes, connect to the folder located at C:\\Python27\\ArcGIS10.x\\Lib\\site-packages\\envipyarc\\esri\\toolboxes\\ and ENVI Management Tools.pyt can be run from there.
@@ -44,8 +46,10 @@ For ArcGIS Pro
 --------------
 
 * Select from Windows start menu ArcGIS |rarr| Python Command Prompt. Note: Make sure to run as administrator
-* Issue following command:
-  >>> pip install envipyarc
+* Issue following command::
+
+    $ pip install envipyarc
+
 * Close the Python Command Prompt
 * Launch ArcGIS Pro
 * Click on Select another project template 
