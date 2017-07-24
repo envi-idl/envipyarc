@@ -38,9 +38,9 @@ For ArcMap
 .. image:: images/configure_envi_environment.png
 
 * The first field - Engine Location - is required. This must be the full path of the 'taskengine.exe' in your ENVI distribution. This file is located at <ENVI_INSTALL_DIR>\\IDLXX\\bin\\bin.x86_64\\taskengine.exe
-* Next, you may specify whether ENVI will have the ability to compile .pro files. This will depend on what your ENVI license allows. If this is not checked, the ENVI code you wish to run must be packaged as .sav files.
-* Finally, if you wish to specify one or more directories that contain custom ENVI code, you can do so here. If you wish to specify more than one directory be sure to use a semi-colon to separate the individual directory paths.
-
+* You may specify whether ENVI will have the ability to compile .pro files. This will depend on what your ENVI license allows. If this is not checked, the ENVI code you wish to run must be packaged as .sav files.
+* If you wish to specify one or more directories that contain custom ENVI code, you can do so here. If you wish to specify more than one directory be sure to use a semi-colon to separate the individual directory paths.
+* Once you have finished setting the parameters hit the OK button to execute the tool and save the environment.
 
 For ArcGIS Pro
 --------------
@@ -62,8 +62,9 @@ For ArcGIS Pro
 .. image:: images/configure_envi_environment_arcgispro.png
 
 * The first field - Engine Location - is required. This must be the full path of the 'taskengine.exe' in your ENVI distribution. This file is located at <ENVI_INSTALL_DIR>\\IDLXX\\bin\\bin.x86_64\\taskengine.exe
-* Next, you may specify whether ENVI will have the ability to compile .pro files. This will depend on what your ENVI license allows. If this is not checked, the ENVI code you wish to run must be packaged as .sav files.
-* Finally, if you wish to specify one or more directories that contain custom ENVI code, you can do so here. If you wish to specify more than one directory be sure to use a semi-colon to separate the individual directory paths.
+* You may specify whether ENVI will have the ability to compile .pro files. This will depend on what your ENVI license allows. If this is not checked, the ENVI code you wish to run must be packaged as .sav files.
+* If you wish to specify one or more directories that contain custom ENVI code, you can do so here. If you wish to specify more than one directory be sure to use a semi-colon to separate the individual directory paths.
+* Once you have finished setting the parameters hit the Run button to execute the tool and save the environment.
 
 
 Usage
