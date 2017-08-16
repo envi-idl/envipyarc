@@ -1,3 +1,4 @@
+
 .. _envipyarc:
 
 ******************
@@ -17,6 +18,8 @@ To operate, ENVI Py for Arcgis requires the following:
 
 * ENVI 5.3SP2 or later
 * ArcMap 10.4 or later and/or ArcGIS Pro 1.3 or later
+
+.. _envipyarc-installation-and-configuration:
 
 Installation and Configuration
 ==============================
@@ -180,16 +183,6 @@ Run the toolbox.
     >>> index = 'Normalized Difference Vegetation Index'
     >>> result = arcpy.SpectralIndex_envi(input_raster,index)
     >>> print(result)
-
-
-API Documentation
-=================
-
-.. toctree::
-   :maxdepth: 2
-
-   api
-
 
 
 

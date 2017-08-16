@@ -45,7 +45,7 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = 'toc'
 
 # General information about the project.
 project = u'ENVI Py for ArcGIS'
