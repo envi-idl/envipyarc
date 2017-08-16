@@ -24,7 +24,7 @@ Installation and Configuration
 For ArcMap
 ----------
 
-* Launch a windows command prompt in administrator module
+* Launch a windows command prompt in administrator mode.
 * Issue following commands::
 
     $ cd c:\Python27\ArcGIS10.5\Scripts
@@ -45,7 +45,7 @@ For ArcMap
 For ArcGIS Pro
 --------------
 
-* Select from Windows start menu ArcGIS |rarr| Python Command Prompt. Note: Make sure to run as administrator
+* Select from Windows start menu ArcGIS |rarr| ArcGIS Pro |rarr| Python Command Prompt. Note: Make sure to run as administrator.
 * Issue following command::
 
     $ pip install envipyarc
@@ -165,7 +165,7 @@ Now, construct a list of tasks to add to the toolbox::
 
 Next, instantiate a GPToolbox class for creating a toolbox::
 
-    >>> from envipyengine import GPToolbox
+    >>> from envipyarc import GPToolbox
     >>> envi_toolbox = GPToolbox(task_list)
     >>> toolbox_file = envi_toolbox.create_toolbox('c:\\my_envi_tools')
 
