@@ -44,14 +44,14 @@ with open(os.path.join(here, 'README.rst')) as f:
     long_description = f.read()
 
 setup(name='envipyarc',
-      version='1.0.4',
+      version='1.0.5',
       description='ENVI Python Tools for ArcGIS',
       long_description=long_description,
       url='https://github.com/envi-idl/envipyarc',
       author='Exelis Visual Information Solutions, Inc.',
       packages=['envipyarc',
                 'envipyarc.templates'],
-      install_requires=['envipyengine', 'envipyarclib'],
+      install_requires=['envipyengine>=1.0.5', 'envipyarclib'],
       cmdclass=dict(test=TestCommand),
       license='MIT',
       keywords='envi idl',
@@ -60,6 +60,7 @@ setup(name='envipyarc',
           'esri/toolboxes/*.pyt',
           'esri/toolboxes/*.xml',
           'esri/projecttemplates/*.aptx'
+          'esir/projecttemplates/*.md'
           ]
       }
 )

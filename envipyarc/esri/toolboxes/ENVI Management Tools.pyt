@@ -72,7 +72,7 @@ class CreateENVIToolbox(object):
             messages.addErrorMessage("Toolbox directory is not writable.")
             raise arcpy.ExecuteError
 
-        toolbox = GPToolbox([Engine('ENVI').task(task[0]) for task in parameters[0].value])
+        toolbox = GPToolbox([Engine('ENVI', cwd=arcpy.env.scratchFolder).task(task[0]) for task in parameters[0].value])
         toolbox.create_toolbox(parameters[1].valueAsText)
 
         return

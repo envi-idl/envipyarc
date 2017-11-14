@@ -1,188 +1,182 @@
 
 .. _envipyarc:
 
-******************
-ENVI Py for ArcGIS
-******************
+************************************
+ENVI :sup:`®` Py for ArcGIS :sup:`®`
+************************************
 
 .. include:: <isonum.txt>
 
-ENVI Py for ArcGIS provides a Python client library, named envipyarc, to run ENVI analytics through ArcMap and ArcGIS Pro.
-
-See http://www.harrisgeospatial.com/ for more details on product offerings.
+ENVI Py for ArcGIS provides a Python client library named envipyarc to run ENVI analytics through ArcMap™ and ArcGIS Pro.
 
 System Requirements
 ===================
 
-To operate, ENVI Py for Arcgis requires the following:
-
-* ENVI 5.3SP2 or later
+* ENVI 5.3 Service Pack 2 or later
 * ArcMap 10.4 or later and/or ArcGIS Pro 1.3 or later
+
+To use ENVI for ArcGIS full interoperability, ENVI 5.4 is required.
 
 .. _envipyarc-installation-and-configuration:
 
 Installation and Configuration
 ==============================
 
-For ArcMap
-----------
+ArcMap
+------
 
-* Launch a windows command prompt in administrator mode.
-* Issue following commands::
+1. Start a Windows command prompt in administrator mode.
+2. Issue the following commands::
 
     $ cd c:\Python27\ArcGIS10.5\Scripts
     $ pip install envipyarc
 
-* Close the windows command prompt
-* Launch ArcMap
-* Navigate in the Catalog window to Toolboxes |rarr| System Toolboxes |rarr| ENVI Management Tools.pyt |rarr| Configure ENVI Environment.  Note: If ENVI Management Tools.pyt does not appear in System Toolboxes, connect to the folder located at C:\\Python27\\ArcGIS10.x\\Lib\\site-packages\\envipyarc\\esri\\toolboxes\\ and ENVI Management Tools.pyt can be run from there.
-* Double-click on Configure ENVI Environment, and a tool is opened that you can use to configure ENVI Py
+3. Close the windows command prompt.
+4. Start ArcMap.
+5. In the Catalog window, select **Toolboxes > System Toolboxes > ENVI Management Tools.pyt > Configure ENVI Environment**. If this file does not appear in System Toolboxes, connect to the folder located at C:\\Python27\\ArcGIS10.x\\Lib\\site-packages\\envipyarc\\esri\\toolboxes\\ and run it from there.
+6. Double-click **Configure ENVI Environment**.
 
-.. image:: images/configure_envi_environment.png
+  .. image:: images/configure_envi_environment.png
 
-* The first field - Engine Location - is required. This must be the full path of the 'taskengine.exe' in your ENVI distribution. This file is located at <ENVI_INSTALL_DIR>\\IDLXX\\bin\\bin.x86_64\\taskengine.exe
-* You may specify whether ENVI will have the ability to compile .pro files. This will depend on what your ENVI license allows. If this is not checked, the ENVI code you wish to run must be packaged as .sav files.
-* If you wish to specify one or more directories that contain custom ENVI code, you can do so here. If you wish to specify more than one directory be sure to use a semi-colon to separate the individual directory paths.
-* Once you have finished setting the parameters hit the OK button to execute the tool and save the environment.
+7. In the required **Engine Location** field, enter the full path of the 'taskengine.exe' in your ENVI distribution. The default path is <ENVI_INSTALL_DIR>\\IDLXX\\bin\\bin.x86_64\\taskengine.exe
+8. Enable the **Run Engine in Compile Mode** option if you want to compile .pro files. This depends on what your ENVI license allows. If you disable this option, the ENVI code you want to run must be packaged as IDL SAVE files (.sav).
+9. Enable the **Use Custom ENVI Library Path** option to specify one or more directories that contain custom ENVI code. Then enter the path to the directories in the **Configure ENVI Library Path** field. Use a semicolon to separate individual directory paths.
+10. Click **OK** to run the tool and save the environment.
 
-For ArcGIS Pro
---------------
+ArcGIS Pro
+----------
 
-* Select from Windows start menu ArcGIS |rarr| ArcGIS Pro |rarr| Python Command Prompt. Note: Make sure to run as administrator.
-* Issue following command::
+1. From the Windows start menu, select **ArcGIS > ArcGIS Pro > Python Command Prompt**. Be sure to run this as an administrator.
+2. Issue following command::
 
     $ pip install envipyarc
 
-* Close the Python Command Prompt
-* Launch ArcGIS Pro
-* Click on Select another project template 
-* Select New |rarr| Computer and click Browse button 
-* Browse to the following location, C:\\Program Files\\ArcGIS\\Pro\\bin\\Python\\envs\\arcgispro-py3\\lib\\site-packages\\envipyarc\\esri\\projecttemplates\\, and select ENVIPyManagement.aptx
-* Enter a name for your project and click OK
-* Navigate in the Project pane to Toolboxes |rarr| ENVI Management Tools.pyt 
-* Expand the ENVI Management Tools toolbox, and double-click on Configure ENVI Environment tool.
+3. Close the **Python Command Prompt**.
+4. Start ArcGIS Pro.
+5. Click **Select another project template**.
+6. Select **New > Computer** and click the **Browse** button.
+7. Navigate to C:\\Program Files\\ArcGIS\\Pro\\bin\\Python\\envs\\arcgispro-py3\\lib\\site-packages\\envipyarc\\esri\\projecttemplates\\.
+8. Select ENVIPyManagement.aptx.
+9. Enter a name for your project and click **OK**.
+10. In the Project pane, select **Toolboxes > ENVI Management Tools.pyt**.
+11. Expand the **ENVI Management Tools** toolbox, and double-click the **Configure ENVI Environment** tool.
 
-.. image:: images/configure_envi_environment_arcgispro.png
+  .. image:: images/configure_envi_environment_arcgispro.png
 
-* The first field - Engine Location - is required. This must be the full path of the 'taskengine.exe' in your ENVI distribution. This file is located at <ENVI_INSTALL_DIR>\\IDLXX\\bin\\bin.x86_64\\taskengine.exe
-* You may specify whether ENVI will have the ability to compile .pro files. This will depend on what your ENVI license allows. If this is not checked, the ENVI code you wish to run must be packaged as .sav files.
-* If you wish to specify one or more directories that contain custom ENVI code, you can do so here. If you wish to specify more than one directory be sure to use a semi-colon to separate the individual directory paths.
-* Once you have finished setting the parameters hit the Run button to execute the tool and save the environment.
-
+11. In the required **Engine Location** field, enter the full path of the 'taskengine.exe' in your ENVI distribution. The default path is <ENVI_INSTALL_DIR>\\IDLXX\\bin\\bin.x86_64\\taskengine.exe.
+12. Enable the **Run Engine in Compile Mode** option if you want to compile .pro files. This depends on what your ENVI license allows. If you disable this option, the ENVI code you want to run must be packaged as IDL SAVE files (.sav).
+13. Enable the **Use Custom ENVI Library Path** option to specify one or more directories that contain custom ENVI code. Then enter the path to the directories in the **Configure ENVI Library Path** field. Use a semicolon to separate individual directory paths.
+14. Click **OK** to run the tool and save the environment.
 
 Usage
 =====
 
-ENVI Py for ArcGIS allows users to generate an ArcGIS Python Toolbox containing 
-geoprocessing tools (GPTools) associated with tasks provided by ENVI Desktop.
+ENVI Py for ArcGIS lets you generate an ArcGIS Python Toolbox that contains geoprocessing tools (GPTools). These tools are associated with tasks provided by ENVI. You can create an ArcGIS Python Toolbox in the following ways:
 
-There are multiple ways to create an ArcGIS Python Toolbox:  
+* An ENVI Management Tools toolbox provided as a system toolbox for ArcMap.
+* An ENVI Py Management project template containing the ENVI Management Tools toolbox for ArcGIS Pro.
+* A command-line tool, named createenvitoolbox, provided in the Python scripts directory.
+* A Python package named envipyarc.
 
-* Through a ENVI Management Tools toolbox provided as a system toolbox for ArcMap.
-* Through a ENVI Py Management project template containing the ENVI Management Tools toolbox for ArcGIS Pro.
-* Through a command-line tool, named createenvitoolbox, provided in the Python scripts directory.
-* Through Python using the Python package, envipyarc.
-
+The options are described next.
 
 Create ENVI Toolbox
 ===================
 
-From ArcMap
------------
+ArcMap
+------
 
-* Launch ArcMap
-* Navigate in the Catalog window to Toolboxes |rarr| System Toolboxes |rarr| ENVI Management Tools.pyt |rarr| Create ENVI Toolbox.
-* Double-click on Create ENVI Toolbox, and the tool appears with two required input parameters.
-* The first parameter is used to specify the names of one or more ENVI tasks to be wrapped in a GPTool. The second parameter is the location where the toolbox is created. 
+1. Start ArcMap.
+2. In the Catalog window, select **Toolboxes > System Toolboxes > ENVI Management Tools.pyt > Create ENVI Toolbox**.
+3. Double-click **Create ENVI Toolbox**.
+4. In the required **ENVI Task Name(s)** field, enter one or more ENVI tasks to be wrapped into a GPTool.
+5. Click the + button to add the tasks to the Task list.
+6. In the required **Output Toolbox** field, specify a location to create the toolbox.
 
-.. image:: images/create_envi_toolbox.png
+  .. image:: images/create_envi_toolbox.png
 
-* Click OK, and when the tool finishes generating the new toolbox, navigate to the location specified in Output Toolbox. 
-* Double-click on ISODATAClassification, and the tool appears with one required input parameter. 
+5. Click **OK**. After the toolbox is created, navigate to the location specified in **Output Toolbox**.
+6. Double-click **ISODATAClassification**. The ISODATA Classification tool appears.
 
-.. image:: images/envitask.png
+  .. image:: images/envitask.png
 
-* Select an input raster dataset for the first input parameter.
+7. In the required **Input Raster** field, select an input raster dataset.
 
-.. image:: images/envitask_input.png
+  .. image:: images/envitask_input.png
 
-* Click OK, and when the tool finishes processing, the result will appear in ArcMap.
+8. Click **OK**. When processing is complete, the result will display in ArcMap.
 
+ArcGIS Pro
+----------
 
+1. Start ArcGIS Pro.
+2. Open the project you created earlier in the Installation section.
+3. In the **Project** pane, select **Toolboxes > ENVI Management Tools.pyt > Create ENVI Toolbox**.
+4. Double-click **Create ENVI Toolbox**.
+5. In the required **ENVI Task Name(s)** field, enter one or more ENVI tasks to be wrapped into a GPTool.
+6.	Click the + button to add the tasks to the Task list.
+7.	In the required **Output Toolbox** field, specify a location to create the toolbox.
 
-From ArcGIS Pro
----------------
+  .. image:: images/create_envi_toolbox_arcgispro.png
 
-* Launch ArcGIS Pro
-* Open the project you created in the Installation section above 
-* Navigate in the Project pane to Toolboxes |rarr| ENVI Management Tools.pyt |rarr| Create ENVI Toolbox. 
-* Double-click on Create ENVI Toolbox, and the tool appears with two required input parameters.
-* The first parameter is used to specify the names of one or more ENVI tasks to be wrapped in a GPTool. The second parameter is the location where the toolbox is created. 
+6. Click **Run**. When processing is complete, use the **Project** tab to navigate to the **Output Toolbox** field.
+7. Double-click **ISODATAClassification**. The ISODATA Classification tool appears.
 
-.. image:: images/create_envi_toolbox_arcgispro.png
+  .. image:: images/arcgispro_envitask.png
 
-* Click run and when the tool finishes generating a new toolbox, navigate in the Project tab to the location specified in Output Toolbox. 
-* Double-click on ISODATAClassification. The tool will appear with one required input parameter. 
+8. In the required **Input Raster** field, select an input raster dataset.
 
-.. image:: images/arcgispro_envitask.png
+  .. image:: images/arcgispro_envitask_input.png
 
-* Select an input raster dataset for the first input parameter. 
+9. Click **Run**. When processing is complete, the result will display in ArcGIS Pro.
 
-.. image:: images/arcgispro_envitask_input.png
+Command Line
+------------
 
-* Click Run, and when the tool finishes processing, a result will appear in ArcGIS Pro.
+The envipyarc package contains a command-line tool named createenvitoolbox.py. This tool can create a Python toolbox that wraps ENVI tasks. The location of this file differs by product:
 
+* ArcMap: C:\\Python27\\ArcGIS10.x\\scripts
+* ArcGIS Pro: C:\\Program Files\\ArcGIS\\Pro\\bin\\Python\\envs\\arcgispro-py3\\Scripts
 
-From Command-line
-=================
+To run the script, go to the Windows Start menu and select **ArcGIS > Python Command Prompt**.
 
-createenvitoolbox.py is a command-line tool in the envipyarc package used to create a Python toolbox that wraps ENVI tasks.
-
-For ArcMap the script is located at C:\\Python27\\ArcGIS10.x\\scripts.
-
-For ArcGIS Pro the script is located at C:\\Program Files\\ArcGIS\\Pro\\bin\\Python\\envs\\arcgispro-py3\\Scripts.  Launch the ArcGIS |rarr| Python Command Prompt to run the script.
-
-To display the help, navigate to the scripts directory and run the --help option::
+* To display the help, navigate to the scripts directory and run the --help option::
 
     $ python createenvitoolbox.py --help
 
-To create a Python toolbox with the ENVI Tasks SpectralIndex and ISODATAClassification, run this command.::
+* To create a Python toolbox with the ENVI Tasks SpectralIndex and ISODATAClassification, run the following command::
 
     $ python createenvitoolbox.py SpectralIndex ISODATAClassification --output C:\\ENVITasks.pyt
 
-The toolbox name is the same as the engine name if no option is provided.
-The output directory defaults to the current directory if no option is provided.
+The toolbox name is the same as the engine name if no option is provided. The output directory defaults to the current directory if no option is provided.
 
 
-From Python
-===========
+Python
+------
 
-The create_toolbox member method is the first way to create a toolbox from a Python module::
+1. Use the create_toolbox member method to create a toolbox from a Python module::
 
     >>> from envipyengine import Engine
     >>> engine = Engine('ENVI')
 
-Now, construct a list of tasks to add to the toolbox::
+2. Construct a list of tasks to add to the toolbox::
 
     >>> task_list = [engine.task('SpectralIndex'), engine.task('ISODATAClassification')]
 
-Next, instantiate a GPToolbox class for creating a toolbox::
+3. Instantiate a GPToolbox class for creating a toolbox::
 
     >>> from envipyarc import GPToolbox
     >>> envi_toolbox = GPToolbox(task_list)
     >>> toolbox_file = envi_toolbox.create_toolbox('c:\\my_envi_tools')
 
-The create_toolbox method returns the filename of the toolbox, which can then be used by arcpy to import the toolbox::
+4. The create_toolbox method returns the filename of the toolbox, which can then be used by arcpy to import the toolbox::
 
     >>> import arcpy
     >>> arcpy.ImportToolbox(toolbox_file)
-	
-Run the toolbox.
+
+5. Run the toolbox::
 
     >>> input_raster = 'C:/Program Files/Harris/ENVI54/data/qb_boulder_msi'
     >>> index = 'Normalized Difference Vegetation Index'
     >>> result = arcpy.SpectralIndex_envi(input_raster,index)
     >>> print(result)
-
-
-

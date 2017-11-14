@@ -3,5 +3,5 @@
     :maxdepth: 2
     
     index
-    api
+    envipyarc_api
     troubleshooting

@@ -45,7 +45,7 @@ class ENVIConfig(Config):
         os.environ['ENVI_CUSTOM_CODE'] = self.test_task_dir
         os.environ['IDL_PATH'] = ';'.join(('<IDL_DEFAULT>', self.test_task_dir))
         self.setup_workspace(self._workspace)
-
+    
     def setup_toolbox(self, engine_name, task_name, toolbox_name):
         """
         Implementation of abstract method
