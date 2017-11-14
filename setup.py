@@ -59,8 +59,8 @@ setup(name='envipyarc',
       package_data={'envipyarc': [
           'esri/toolboxes/*.pyt',
           'esri/toolboxes/*.xml',
-          'esri/projecttemplates/*.aptx'
-          'esir/projecttemplates/*.md'
+          'esri/projecttemplates/*.aptx',
+          'esri/projecttemplates/*.md'
           ]
       }
 )
