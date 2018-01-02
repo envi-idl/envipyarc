@@ -44,7 +44,7 @@ with open(os.path.join(here, 'README.rst')) as f:
     long_description = f.read()
 
 setup(name='envipyarc',
-      version='1.0.5',
+      version='1.0.7',
       description='ENVI Python Tools for ArcGIS',
       long_description=long_description,
       url='https://github.com/envi-idl/envipyarc',

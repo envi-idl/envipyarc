@@ -12,6 +12,8 @@ from envipyarclib.test.datatype.doublearray import TestDataTypeDoubleArray
 from envipyarclib.test.datatype.enviraster import TestDataTypeENVIRaster
 from envipyarclib.test.datatype.enviuri import TestDataTypeENVIURI
 from envipyarclib.test.datatype.envivector import TestDataTypeENVIVector
+from envipyarclib.test.datatype.envivirtualizableuri import TestDataTypeENVIVirtualizableURI
+from envipyarclib.test.datatype.enviuri import TestDataTypeENVIURI
 from envipyarclib.test.datatype.float import TestDatatypeFloat
 from envipyarclib.test.datatype.floatarray import TestDataTypeFloatArray
 from envipyarclib.test.datatype.int import TestDataTypeInt
@@ -71,6 +73,7 @@ TESTS = [
     TestDataTypeENVIRaster,
     TestDataTypeENVIURI,
     TestDataTypeENVIVector,
+    TestDataTypeENVIVirtualizableURI,
     TestDatatypeFloat,
     TestDataTypeFloatArray,
     TestDataTypeInt,

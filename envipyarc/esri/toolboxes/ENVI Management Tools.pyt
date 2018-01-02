@@ -102,14 +102,14 @@ class ConfigureENVIEnvironment(object):
             direction="input")
 
         useCustomENVIPath = arcpy.Parameter(
-            displayName='Use Custom ENVI Library Path',
+            displayName='Set path to ENVI Custom Code location',
             name='useCustomENVIPath',
             datatype='GPBoolean',
             parameterType='optional',
             direction='input')
 
         engineENVIpath = arcpy.Parameter(
-            displayName='Configure ENVI Library Path',
+            displayName='ENVI Custom Code location',
             name='engineENVIpath',
             datatype='GPString',
             parameterType='Optional',
@@ -150,9 +150,9 @@ class ConfigureENVIEnvironment(object):
         # Custom library path checkbox
         if parameters[2].value is None:
             environment = envipyengine.config.get_environment()
-            if 'IDL_PATH' in environment:
+            if 'ENVI_CUSTOM_CODE' in environment:
                 parameters[2].value = True
-                parameters[3].value = environment['IDL_PATH']
+                parameters[3].value = environment['ENVI_CUSTOM_CODE']
             else:
                 parameters[2].value = False
 
@@ -189,17 +189,17 @@ class ConfigureENVIEnvironment(object):
                     messages.AddMessage('Turning "--compile" off')
                     envipyengine.config.set('engine-args', engine_args.replace('--compile', '').strip())
 
-        # if the checkbox is checked and there is a Library path value, update it
+        # if the checkbox is checked and there is a ENVI Custom Code path value, update it
         # otherwise remove the custom library path
         if parameters[2].value and parameters[3].value is not None:
             messages.AddMessage('Setting ENVI Library Path: ' + parameters[3].valueAsText)
-            idl_path = parameters[3].valueAsText
-            environ = {'IDL_PATH': idl_path}
+            envi_custom_code = parameters[3].valueAsText
+            environ = {'ENVI_CUSTOM_CODE': envi_custom_code}
             envipyengine.config.set_environment(environ)
         else:
             environment = envipyengine.config.get_environment()
-            if 'IDL_PATH' in environment:
-                messages.AddMessage('Removing ENVI Library Path...')
-                envipyengine.config.remove_environment('IDL_PATH')
+            if 'ENVI_CUSTOM_CODE' in environment:
+                messages.AddMessage('Removing ENVI Custom Code Path...')
+                envipyengine.config.remove_environment('ENVI_CUSTOM_CODE')
 
         return

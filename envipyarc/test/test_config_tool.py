@@ -24,7 +24,7 @@ class TestConfigTool(unittest.TestCase):
 
     _ENGINE = 'engine'
     _ENGINE_ARGS = 'engine-args'
-    _IDL_PATH = 'IDL_PATH'
+    _ENVI_CUSTOM_CODE = 'ENVI_CUSTOM_CODE'
 
     @classmethod
     def setUpClass(cls):
@@ -78,8 +78,8 @@ class TestConfigTool(unittest.TestCase):
 
         self.assertEqual(self.engine_value, result_engine)
         self.assertEqual(self.compile, result_engine_args)
-        self.assertTrue(self._IDL_PATH in result_environment)
-        self.assertEquals(self.path_value, result_environment[self._IDL_PATH])
+        self.assertTrue(self._ENVI_CUSTOM_CODE in result_environment)
+        self.assertEquals(self.path_value, result_environment[self._ENVI_CUSTOM_CODE])
 
     def test_config_turn_off_compile(self):
         """ Verify compile is turned off properly """
@@ -99,10 +99,10 @@ class TestConfigTool(unittest.TestCase):
                                                      self.path_value)
 
         result_environment = envipyengine.config.get_environment()
-        self.assertTrue(self._IDL_PATH in result_environment)
-        self.assertEquals(self.path_value, result_environment[self._IDL_PATH])
+        self.assertTrue(self._ENVI_CUSTOM_CODE in result_environment)
+        self.assertEquals(self.path_value, result_environment[self._ENVI_CUSTOM_CODE])
 
         result = arcpy.ConfigureENVIEnvironment_envi(self.engine_value,
                                                      False, False, None)
         result_environment = envipyengine.config.get_environment()
-        self.assertFalse(self._IDL_PATH in result_environment)
+        self.assertFalse(self._ENVI_CUSTOM_CODE in result_environment)
