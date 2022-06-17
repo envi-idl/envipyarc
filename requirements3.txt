@@ -3,7 +3,7 @@ wheel==0.30
 coverage==4.4.1
 envipyengine>=1.0.5
 envipyarclib>=1.0.6
-numpy==1.13.1
+numpy==1.21.0
 pylint==1.7.2
 setuptools==20.7.0
 Sphinx==1.4.1

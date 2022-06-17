@@ -2,7 +2,7 @@
 coverage==4.1
 envipyengine>=1.0.5
 envipyarclib>=1.0.6
-numpy==1.7.1
+numpy==1.21.0
 pylint==1.5.4
 setuptools==19.2
 Sphinx==1.4.1
