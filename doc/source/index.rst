@@ -2,20 +2,18 @@
 .. _envipyarc:
 
 ************************************
-ENVI :sup:`®` Py for ArcGIS :sup:`®`
+ENVI Py for ArcGIS
 ************************************
 
 .. include:: <isonum.txt>
 
-ENVI Py for ArcGIS provides a Python client library named envipyarc to run ENVI analytics through ArcMap™ and ArcGIS Pro.
+ENVI Py for ArcGIS provides a Python client library named envipyarc to run ENVI analytics through ArcMap and ArcGIS Pro.
 
 System Requirements
 ===================
 
-* ENVI 5.3 Service Pack 2 or later
-* ArcMap 10.4 or later and/or ArcGIS Pro 1.3 or later
-
-To use ENVI for ArcGIS full interoperability, ENVI 5.4 is required.
+* ENVI 5.5 Service Pack 2 or later
+* ArcMap 10.6 or later and/or ArcGIS Pro 2.2 or later
 
 .. _envipyarc-installation-and-configuration:
 
@@ -24,49 +22,20 @@ Installation and Configuration
 
 ArcMap
 ------
+ENVI must be installed on the computer before you install ENVI Py. If it is not already installed, you need to install ENVI first. Install ENVI Py from a web download or a DVD as follows:
 
-1. Start a Windows command prompt in administrator mode.
-2. Issue the following commands::
+1. For web downloads, navigate to the envipy*xx*-arcmap.exe file that was downloaded to your computer and run it. For installation from a DVD, navigate to the setup-envipy*xx*-arcmap.exe file in the ENVIPy*xx* folder on the DVD and run it.
+2. Follow the prompts to install the software. No further configuration is necessary.
 
-    $ cd c:\Python27\ArcGIS10.5\Scripts
-    $ pip install envipyarc
-
-3. Close the windows command prompt.
-4. Start ArcMap.
-5. In the Catalog window, select **Toolboxes > System Toolboxes > ENVI Management Tools.pyt > Configure ENVI Environment**. If this file does not appear in System Toolboxes, connect to the folder located at C:\\Python27\\ArcGIS10.x\\Lib\\site-packages\\envipyarc\\esri\\toolboxes\\ and run it from there.
-6. Double-click **Configure ENVI Environment**.
-
-  .. image:: images/configure_envi_environment.png
-
-7. In the required **Engine Location** field, enter the full path of the 'taskengine.exe' in your ENVI distribution. The default path is <ENVI_INSTALL_DIR>\\IDLXX\\bin\\bin.x86_64\\taskengine.exe
-8. Enable the **Run Engine in Compile Mode** option if you want to compile .pro files. This depends on what your ENVI license allows. If you disable this option, the ENVI code you want to run must be packaged as IDL SAVE files (.sav).
-9. Enable the **Use Custom ENVI Library Path** option to specify one or more directories that contain custom ENVI code. Then enter the path to the directories in the **Configure ENVI Library Path** field. Use a semicolon to separate individual directory paths.
-10. Click **OK** to run the tool and save the environment.
 
 ArcGIS Pro
 ----------
 
-1. From the Windows start menu, select **ArcGIS > ArcGIS Pro > Python Command Prompt**. Be sure to run this as an administrator.
-2. Issue following command::
+ENVI must be installed on the computer before you install ENVI Py. If it is not already installed, you need to install ENVI first. Install ENVI Py from a web download or a DVD as follows:
 
-    $ pip install envipyarc
+1. For web downloads, navigate to the envipy*xx*-arcgispro.exe file that was downloaded to your computer and run it. For installation from a DVD, navigate to the setup-envipy*xx*-arcgispro.exe file in the ENVIPy*xx* folder on the DVD and run it.
+2. Follow the prompts to install the software. No further configuration is necessary.
 
-3. Close the **Python Command Prompt**.
-4. Start ArcGIS Pro.
-5. Click **Select another project template**.
-6. Select **New > Computer** and click the **Browse** button.
-7. Navigate to C:\\Program Files\\ArcGIS\\Pro\\bin\\Python\\envs\\arcgispro-py3\\lib\\site-packages\\envipyarc\\esri\\projecttemplates\\.
-8. Select ENVIPyManagement.aptx.
-9. Enter a name for your project and click **OK**.
-10. In the Project pane, select **Toolboxes > ENVI Management Tools.pyt**.
-11. Expand the **ENVI Management Tools** toolbox, and double-click the **Configure ENVI Environment** tool.
-
-  .. image:: images/configure_envi_environment_arcgispro.png
-
-11. In the required **Engine Location** field, enter the full path of the 'taskengine.exe' in your ENVI distribution. The default path is <ENVI_INSTALL_DIR>\\IDLXX\\bin\\bin.x86_64\\taskengine.exe.
-12. Enable the **Run Engine in Compile Mode** option if you want to compile .pro files. This depends on what your ENVI license allows. If you disable this option, the ENVI code you want to run must be packaged as IDL SAVE files (.sav).
-13. Enable the **Use Custom ENVI Library Path** option to specify one or more directories that contain custom ENVI code. Then enter the path to the directories in the **Configure ENVI Library Path** field. Use a semicolon to separate individual directory paths.
-14. Click **OK** to run the tool and save the environment.
 
 Usage
 =====
@@ -74,11 +43,10 @@ Usage
 ENVI Py for ArcGIS lets you generate an ArcGIS Python Toolbox that contains geoprocessing tools (GPTools). These tools are associated with tasks provided by ENVI. You can create an ArcGIS Python Toolbox in the following ways:
 
 * An ENVI Management Tools toolbox provided as a system toolbox for ArcMap.
-* An ENVI Py Management project template containing the ENVI Management Tools toolbox for ArcGIS Pro.
 * A command-line tool, named createenvitoolbox, provided in the Python scripts directory.
 * A Python package named envipyarc.
 
-The options are described next.
+These options are described next.
 
 Create ENVI Toolbox
 ===================
@@ -109,8 +77,10 @@ ArcMap
 ArcGIS Pro
 ----------
 
+If you installed ENVI Py for ArcGIS Pro from a web download or DVD, refer to the `Running ENVI Analytics in ArcGIS Pro Tutorial https://www.l3harrisgeospatial.com/portals/0/pdfs/RunningENVIAnalyticsInArcGISProTutorial.pdf for instructions on creating an ArcGIS Python toolbox that contains ENVI geoprocessing tools. If you did not install from a web download or DVD, follow these instructions:
+
 1. Start ArcGIS Pro.
-2. Open the project you created earlier in the Installation section.
+2. Open the project you created earlier in steps 5-9 of the ArcGIS Pro installation section.
 3. In the **Project** pane, select **Toolboxes > ENVI Management Tools.pyt > Create ENVI Toolbox**.
 4. Double-click **Create ENVI Toolbox**.
 5. In the required **ENVI Task Name(s)** field, enter one or more ENVI tasks to be wrapped into a GPTool.
@@ -176,7 +146,7 @@ Python
 
 5. Run the toolbox::
 
-    >>> input_raster = 'C:/Program Files/Harris/ENVI54/data/qb_boulder_msi'
+    >>> input_raster = 'C:/Program Files/Harris/ENVI55/data/qb_boulder_msi'
     >>> index = 'Normalized Difference Vegetation Index'
     >>> result = arcpy.SpectralIndex_envi(input_raster,index)
     >>> print(result)

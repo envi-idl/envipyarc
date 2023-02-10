@@ -1,24 +1,34 @@
 """
-Maps the ENVI Task data type to a GPTool datatype
+Maps the ENVIMACHINELEARNINGMODEL data type to a GPTool datatype
 """
-
 from __future__ import absolute_import
 from string import Template
 
 from envipyarclib.gptool.parameter.template import Template as ParamTemplate
 
-class ENVIRASTER(ParamTemplate):
+
+class ENVIMACHINELEARNINGMODEL(ParamTemplate):
     """
     Class template for the datatype
     """
 
-    def __init__(self, data_type, envi_factory='URLRaster'):
-        super(ENVIRASTER, self).__init__(data_type)
-        self.envi_factory = envi_factory
-
     def get_parameter(self, task_param):
         if task_param['direction'].upper() == 'OUTPUT':
-            return Template('''
+            return Template(
+                '''
+        $name = arcpy.Parameter(
+            displayName="$displayName",
+            name="$name",
+            datatype="GPString",
+            parameterType="$paramType",
+            direction="$direction",
+            multiValue=$multiValue
+        )
+                '''
+            )
+        # Return the input template
+        return Template(
+            '''
         $name = arcpy.Parameter(
             displayName="$displayName",
             name="$name",
@@ -27,52 +37,42 @@ class ENVIRASTER(ParamTemplate):
             direction="$direction",
             multiValue=$multiValue
         )
-''')
-        # Return the input template
-        return Template('''
-        $name = arcpy.Parameter(
-            displayName="$displayName",
-            name="$name",
-            datatype=["$dataType","GPString"],
-            parameterType="$paramType",
-            direction="$direction",
-            multiValue=$multiValue
+        $name.filter.list = ['json']
+            '''
         )
-''')
 
     def parameter_names(self, task_param):
         return [Template('$name')]
 
     def default_value(self):
-        return Template('''
+        return Template(
+            '''
         ${name}.value = "$defaultValue"
-''')
+            '''
+        )
 
     def update_parameter(self):
         return Template('')
 
     def pre_execute(self):
-        return Template('''
-
+        return Template(
+            '''
         path = parameters[self.i${name}].valueAsText
         if not path is None:
-            input_params['${name}'] = {'url': path, 'factory':'%s' }
-''' % self.envi_factory)
+            input_params['${name}'] = {'url':path, 'factory':'ENVIMACHINELEARNINGMODEL'}
+            '''
+        )
 
     def post_execute(self):
-        return Template('''
+        return Template(
+            '''
         if '${name}' in task_results:
-            raster = task_results['${name}']
-            if 'url' in raster:
-                parameters[self.i${name}].value = raster['url']
-            else:
-                # some raster types are not supported, such as ENVISubsetRaster
-                import json
-                messages.addErrorMessage("This task may not be supported: the returned ENVIRaster is of an unexpected dehydrated form: " + json.dumps(raster))
-                raise arcpy.ExecuteError
-''')
+            model = task_results['${name}']
+            parameters[self.i${name}].value = model['url']
+            '''
+        )
 
 
 def template():
     """Returns the template object."""
-    return ENVIRASTER('DERasterDataset')
+    return ENVIMACHINELEARNINGMODEL('DEFile')

@@ -7,13 +7,13 @@ from string import Template
 
 from envipyarclib.gptool.parameter.template import Template as ParamTemplate
 
-class ENVIRASTER(ParamTemplate):
+class ENVIRASTERARRAY(ParamTemplate):
     """
     Class template for the datatype
     """
 
     def __init__(self, data_type, envi_factory='URLRaster'):
-        super(ENVIRASTER, self).__init__(data_type)
+        super(ENVIRASTERARRAY, self).__init__(data_type)
         self.envi_factory = envi_factory
 
     def get_parameter(self, task_param):
@@ -45,7 +45,7 @@ class ENVIRASTER(ParamTemplate):
 
     def default_value(self):
         return Template('''
-        ${name}.value = "$defaultValue"
+        ${name}.values = "$defaultValue"
 ''')
 
     def update_parameter(self):
@@ -53,26 +53,37 @@ class ENVIRASTER(ParamTemplate):
 
     def pre_execute(self):
         return Template('''
-
-        path = parameters[self.i${name}].valueAsText
-        if not path is None:
-            input_params['${name}'] = {'url': path, 'factory':'%s' }
+        paths = parameters[self.i${name}].values
+        rasters = []
+        for path in paths:
+            try:
+                path = path.value
+            except AttributeError as error:
+                pass
+            rasters.append({'url': path, 'factory':'%s'})
+        input_params['${name}'] = rasters
 ''' % self.envi_factory)
 
     def post_execute(self):
         return Template('''
+
         if '${name}' in task_results:
-            raster = task_results['${name}']
-            if 'url' in raster:
-                parameters[self.i${name}].value = raster['url']
-            else:
-                # some raster types are not supported, such as ENVISubsetRaster
-                import json
-                messages.addErrorMessage("This task may not be supported: the returned ENVIRaster is of an unexpected dehydrated form: " + json.dumps(raster))
-                raise arcpy.ExecuteError
+            rasters = task_results['${name}']
+            paths = []
+            for raster in rasters:
+                if 'url' in raster:
+                    path = raster['url']
+                    if path not in paths:
+                        paths.append(path)
+                else:
+                    # some raster types are not supported, such as ENVISubsetRaster
+                    import json
+                    messages.addErrorMessage("This task may not be supported: one or more returned ENVIRaster(s) are of an unexpected dehydrated form: " + json.dumps(raster))
+                    raise arcpy.ExecuteError
+            parameters[self.i${name}].values = paths
 ''')
 
 
 def template():
     """Returns the template object."""
-    return ENVIRASTER('DERasterDataset')
+    return ENVIRASTERARRAY('DERasterDataset')

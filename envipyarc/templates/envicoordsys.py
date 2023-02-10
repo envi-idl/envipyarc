@@ -1,21 +1,16 @@
 """
-Maps the ENVI Task data type to a GPTool datatype
+Maps the ENVICOORDSYS data type to a GPTool datatype
 """
-
 from __future__ import absolute_import
 from string import Template
 
 from envipyarclib.gptool.parameter.template import Template as ParamTemplate
 
-class ENVIRASTER(ParamTemplate):
+
+class ENVICOORDSYS(ParamTemplate):
     """
     Class template for the datatype
     """
-
-    def __init__(self, data_type, envi_factory='URLRaster'):
-        super(ENVIRASTER, self).__init__(data_type)
-        self.envi_factory = envi_factory
-
     def get_parameter(self, task_param):
         if task_param['direction'].upper() == 'OUTPUT':
             return Template('''
@@ -54,25 +49,24 @@ class ENVIRASTER(ParamTemplate):
     def pre_execute(self):
         return Template('''
 
-        path = parameters[self.i${name}].valueAsText
-        if not path is None:
-            input_params['${name}'] = {'url': path, 'factory':'%s' }
-''' % self.envi_factory)
+        coordSysStr = parameters[self.i${name}].valueAsText
+        if not coordSysStr is None:
+            # ENVICoordSys parses based on " delimiters, not '
+            coordSysStr = coordSysStr.replace("'", '"') 
+            input_params['${name}'] = {'coord_sys_str': coordSysStr, 'factory':'CoordSys'}
+''')
 
     def post_execute(self):
         return Template('''
         if '${name}' in task_results:
-            raster = task_results['${name}']
-            if 'url' in raster:
-                parameters[self.i${name}].value = raster['url']
-            else:
-                # some raster types are not supported, such as ENVISubsetRaster
-                import json
-                messages.addErrorMessage("This task may not be supported: the returned ENVIRaster is of an unexpected dehydrated form: " + json.dumps(raster))
-                raise arcpy.ExecuteError
+            coordSys = task_results['${name}']
+            key = 'coord_sys_str'
+            if key not in coordSys:
+                key = 'coord_sys_code'
+            parameters[self.i${name}].values = coordSys[key]
 ''')
 
 
 def template():
     """Returns the template object."""
-    return ENVIRASTER('DERasterDataset')
+    return ENVICOORDSYS('GPCoordinateSystem')
