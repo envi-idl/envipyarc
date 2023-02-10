@@ -1,21 +1,16 @@
 """
-Maps the ENVI Task data type to a GPTool datatype
+Maps the ENVIRASTERSERIESARRAY data type to a GPTool datatype
 """
-
 from __future__ import absolute_import
 from string import Template
 
 from envipyarclib.gptool.parameter.template import Template as ParamTemplate
 
-class ENVIRASTER(ParamTemplate):
+
+class ENVIRASTERSERIESARRAY(ParamTemplate):
     """
     Class template for the datatype
     """
-
-    def __init__(self, data_type, envi_factory='URLRaster'):
-        super(ENVIRASTER, self).__init__(data_type)
-        self.envi_factory = envi_factory
-
     def get_parameter(self, task_param):
         if task_param['direction'].upper() == 'OUTPUT':
             return Template('''
@@ -45,7 +40,7 @@ class ENVIRASTER(ParamTemplate):
 
     def default_value(self):
         return Template('''
-        ${name}.value = "$defaultValue"
+        ${name}.values = "$defaultValue"
 ''')
 
     def update_parameter(self):
@@ -54,25 +49,30 @@ class ENVIRASTER(ParamTemplate):
     def pre_execute(self):
         return Template('''
 
-        path = parameters[self.i${name}].valueAsText
-        if not path is None:
-            input_params['${name}'] = {'url': path, 'factory':'%s' }
-''' % self.envi_factory)
+        paths = parameters[self.i${name}].values
+        series = []
+        for path in paths:
+            try:
+                path = path.value
+            except AttributeError as error:
+                pass
+            series.append({'url': path, 'factory':'ENVIURLRASTERSERIES'})
+        input_params['${name}'] = series
+''')
 
     def post_execute(self):
         return Template('''
         if '${name}' in task_results:
-            raster = task_results['${name}']
-            if 'url' in raster:
-                parameters[self.i${name}].value = raster['url']
-            else:
-                # some raster types are not supported, such as ENVISubsetRaster
-                import json
-                messages.addErrorMessage("This task may not be supported: the returned ENVIRaster is of an unexpected dehydrated form: " + json.dumps(raster))
-                raise arcpy.ExecuteError
+            series = task_results['${name}']
+            paths = []
+            for s in series:
+                path = s['url']
+                if path not in paths:
+                    paths.append(path)
+            parameters[self.i${name}].values = paths
 ''')
 
 
 def template():
     """Returns the template object."""
-    return ENVIRASTER('DERasterDataset')
+    return ENVIRASTERSERIESARRAY('DEFile')

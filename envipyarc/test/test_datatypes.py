@@ -9,11 +9,19 @@ from envipyarclib.test.datatype.byte import TestDataTypeByte
 from envipyarclib.test.datatype.bytearray import TestDataTypeByteArray
 from envipyarclib.test.datatype.double import TestDataTypeDouble
 from envipyarclib.test.datatype.doublearray import TestDataTypeDoubleArray
+from envipyarclib.test.datatype.envicoordsys import TestDataTypeENVICoordSys
 from envipyarclib.test.datatype.enviraster import TestDataTypeENVIRaster
-from envipyarclib.test.datatype.enviuri import TestDataTypeENVIURI
+from envipyarclib.test.datatype.envirasterarray import TestDataTypeENVIRasterArray
+from envipyarclib.test.datatype.envirasterseries import TestDataTypeENVIRasterSeries
+from envipyarclib.test.datatype.envirasterseriesarray import TestDataTypeENVIRasterSeriesArray
+from envipyarclib.test.datatype.enviroi import TestDataTypeENVIROI
+from envipyarclib.test.datatype.enviroiarray import TestDataTypeENVIROIArray
+from envipyarclib.test.datatype.envitime import TestDataTypeENVITIME
 from envipyarclib.test.datatype.envivector import TestDataTypeENVIVector
 from envipyarclib.test.datatype.envivirtualizableuri import TestDataTypeENVIVirtualizableURI
+from envipyarclib.test.datatype.envivirtualizableuriarray import TestDataTypeENVIVirtualizableURIArray
 from envipyarclib.test.datatype.enviuri import TestDataTypeENVIURI
+from envipyarclib.test.datatype.enviuriarray import TestDataTypeENVIURIArray
 from envipyarclib.test.datatype.float import TestDatatypeFloat
 from envipyarclib.test.datatype.floatarray import TestDataTypeFloatArray
 from envipyarclib.test.datatype.int import TestDataTypeInt
@@ -21,6 +29,8 @@ from envipyarclib.test.datatype.intarray import TestDataTypeIntArray
 from envipyarclib.test.datatype.long import TestDatatypeLong
 from envipyarclib.test.datatype.long64 import TestDatatypeLong64
 from envipyarclib.test.datatype.long64array import TestDataTypeLong64Array
+from envipyarclib.test.datatype.sarscapedata import TestDataTypeSARSCAPEDATA
+from envipyarclib.test.datatype.sarscapedataarray import TestDataTypeSARSCAPEDATAArray
 from envipyarclib.test.datatype.string import TestDatatypeString
 from envipyarclib.test.datatype.stringarray import TestDataTypeStringArray
 from envipyarclib.test.datatype.uint import TestDataTypeUInt
@@ -47,7 +57,7 @@ class ENVIConfig(Config):
         os.environ['ENVI_CUSTOM_CODE'] = self.test_task_dir
         os.environ['IDL_PATH'] = ';'.join(('<IDL_DEFAULT>', self.test_task_dir))
         self.setup_workspace(self._workspace)
-    
+
     def setup_toolbox(self, engine_name, task_name, toolbox_name):
         """
         Implementation of abstract method
@@ -70,10 +80,19 @@ TESTS = [
     TestDataTypeByteArray,
     TestDataTypeDouble,
     TestDataTypeDoubleArray,
+    TestDataTypeENVICoordSys,
     TestDataTypeENVIRaster,
+    TestDataTypeENVIRasterArray,
+    TestDataTypeENVIRasterSeries,
+    TestDataTypeENVIRasterSeriesArray,
+    TestDataTypeENVIROI,
+    TestDataTypeENVIROIArray,
     TestDataTypeENVIURI,
+    TestDataTypeENVIURIArray,
+    TestDataTypeENVITIME,
     TestDataTypeENVIVector,
     TestDataTypeENVIVirtualizableURI,
+    TestDataTypeENVIVirtualizableURIArray,
     TestDatatypeFloat,
     TestDataTypeFloatArray,
     TestDataTypeInt,
@@ -81,6 +100,8 @@ TESTS = [
     TestDatatypeLong,
     TestDatatypeLong64,
     TestDataTypeLong64Array,
+    TestDataTypeSARSCAPEDATA,
+    TestDataTypeSARSCAPEDATAArray,
     TestDatatypeString,
     TestDataTypeStringArray,
     TestDataTypeUInt,

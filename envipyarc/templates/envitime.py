@@ -1,21 +1,16 @@
 """
-Maps the ENVI Task data type to a GPTool datatype
+Maps the ENVITIME data type to a GPTool datatype
 """
-
 from __future__ import absolute_import
 from string import Template
 
 from envipyarclib.gptool.parameter.template import Template as ParamTemplate
 
-class ENVIRASTER(ParamTemplate):
+
+class ENVITIME(ParamTemplate):
     """
     Class template for the datatype
     """
-
-    def __init__(self, data_type, envi_factory='URLRaster'):
-        super(ENVIRASTER, self).__init__(data_type)
-        self.envi_factory = envi_factory
-
     def get_parameter(self, task_param):
         if task_param['direction'].upper() == 'OUTPUT':
             return Template('''
@@ -33,7 +28,7 @@ class ENVIRASTER(ParamTemplate):
         $name = arcpy.Parameter(
             displayName="$displayName",
             name="$name",
-            datatype=["$dataType","GPString"],
+            datatype="$dataType",
             parameterType="$paramType",
             direction="$direction",
             multiValue=$multiValue
@@ -53,26 +48,43 @@ class ENVIRASTER(ParamTemplate):
 
     def pre_execute(self):
         return Template('''
+        # no guarantee datetime is present
+        from datetime import datetime as dt 
 
-        path = parameters[self.i${name}].valueAsText
-        if not path is None:
-            input_params['${name}'] = {'url': path, 'factory':'%s' }
-''' % self.envi_factory)
+        date = parameters[self.i${name}].value
+        if not date is None:
+            # use the most verbose formatting for envi
+            date = dt.strftime(date, '%Y-%m-%dT%H:%M:%S.%f%zZ')
+            input_params['${name}'] = {'acquisition': date, 'factory':'ENVITime'}
+''')
 
     def post_execute(self):
         return Template('''
         if '${name}' in task_results:
-            raster = task_results['${name}']
-            if 'url' in raster:
-                parameters[self.i${name}].value = raster['url']
-            else:
-                # some raster types are not supported, such as ENVISubsetRaster
-                import json
-                messages.addErrorMessage("This task may not be supported: the returned ENVIRaster is of an unexpected dehydrated form: " + json.dumps(raster))
-                raise arcpy.ExecuteError
+            # no guarantee datetime is present
+            from datetime import datetime as dt 
+
+            date = task_results['${name}']['acquisition']
+
+            # ENVITime can come back in one of three ways
+            # YYYY-MM-DD
+            # YYYY-MM-DDTHH:MM:SS.DZ
+            # YYYY-MM-DDTHH:MM:SS:Dooo:mm
+            dateFormat = '%Y-%m-%d'
+            if 'T' in date:
+                dateFormat += 'T%H:%M:%S'
+                if '.' in date:
+                    dateFormat += '.%f'
+                if 'Z' in date:
+                    dateFormat += 'Z'
+                else:
+                    dateFormat += '%z'
+
+            date = dt.strptime(date, dateFormat)
+            parameters[self.i${name}].value = date
 ''')
 
 
 def template():
     """Returns the template object."""
-    return ENVIRASTER('DERasterDataset')
+    return ENVITIME('GPDate')

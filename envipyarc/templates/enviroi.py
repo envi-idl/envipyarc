@@ -1,21 +1,16 @@
 """
-Maps the ENVI Task data type to a GPTool datatype
+Maps the ENVIROI data type to a GPTool datatype
 """
-
 from __future__ import absolute_import
 from string import Template
 
 from envipyarclib.gptool.parameter.template import Template as ParamTemplate
 
-class ENVIRASTER(ParamTemplate):
+
+class ENVIROI(ParamTemplate):
     """
     Class template for the datatype
     """
-
-    def __init__(self, data_type, envi_factory='URLRaster'):
-        super(ENVIRASTER, self).__init__(data_type)
-        self.envi_factory = envi_factory
-
     def get_parameter(self, task_param):
         if task_param['direction'].upper() == 'OUTPUT':
             return Template('''
@@ -56,23 +51,17 @@ class ENVIRASTER(ParamTemplate):
 
         path = parameters[self.i${name}].valueAsText
         if not path is None:
-            input_params['${name}'] = {'url': path, 'factory':'%s' }
-''' % self.envi_factory)
+            input_params['${name}'] = {'url': path, 'factory':'ENVIURLROI'}
+''')
 
     def post_execute(self):
         return Template('''
         if '${name}' in task_results:
-            raster = task_results['${name}']
-            if 'url' in raster:
-                parameters[self.i${name}].value = raster['url']
-            else:
-                # some raster types are not supported, such as ENVISubsetRaster
-                import json
-                messages.addErrorMessage("This task may not be supported: the returned ENVIRaster is of an unexpected dehydrated form: " + json.dumps(raster))
-                raise arcpy.ExecuteError
+            roi = task_results['${name}']
+            parameters[self.i${name}].values = roi['url']
 ''')
 
 
 def template():
     """Returns the template object."""
-    return ENVIRASTER('DERasterDataset')
+    return ENVIROI('DEFile')

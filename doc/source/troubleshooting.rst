@@ -11,12 +11,7 @@ This error means the ENVI Py installation has not been configured to point to yo
 
 
 
-This document was created using a newer version of ArcGIS Pro
-=============================================================
+Invalid task definition: Unknown task schema
+============================================
 
-when opening the project template in ArcGIS Pro version 1.3 or earlier, you will get this warning message about dropping unsupported features.
-
-.. image:: images/arcgispro_template_version.png
-
-The project templates provided are built with ArcGIS Pro 1.4 and package the python toolboxes so they are easily accessible. The templates are supported for ArcGIS 1.2 or newer and no features will be downgraded or dropped.
-
+This error occurs when running task not supported by the ENVI version connected to ENVI Py.  To fix this error make sure that ENVI Py is configured to use the latest version of ENVI installed on your machine.

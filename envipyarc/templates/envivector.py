@@ -49,10 +49,9 @@ class ENVIVECTOR(ParamTemplate):
     def pre_execute(self):
         return Template('''
 
-        path = str(parameters[self.i${name}].value)
-        input_params['${name}'] = {'url': path,
-                                   'factory':'URLVector'
-                                  }
+        path = parameters[self.i${name}].valueAsText
+        if not path is None:
+            input_params['${name}'] = {'url': path, 'factory':'URLVector'}
 ''')
 
     def post_execute(self):

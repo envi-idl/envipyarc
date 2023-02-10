@@ -1,21 +1,16 @@
 """
-Maps the ENVI Task data type to a GPTool datatype
+Maps the SARSCAPECOORDSYSARRAY data type to a GPTool datatype
 """
-
 from __future__ import absolute_import
 from string import Template
 
 from envipyarclib.gptool.parameter.template import Template as ParamTemplate
 
-class ENVIRASTER(ParamTemplate):
+
+class SARSCAPECOORDSYSARRAY(ParamTemplate):
     """
     Class template for the datatype
     """
-
-    def __init__(self, data_type, envi_factory='URLRaster'):
-        super(ENVIRASTER, self).__init__(data_type)
-        self.envi_factory = envi_factory
-
     def get_parameter(self, task_param):
         if task_param['direction'].upper() == 'OUTPUT':
             return Template('''
@@ -25,7 +20,7 @@ class ENVIRASTER(ParamTemplate):
             datatype="$dataType",
             parameterType="$paramType",
             direction="$direction",
-            multiValue=$multiValue
+            multiValue=False
         )
 ''')
         # Return the input template
@@ -36,7 +31,7 @@ class ENVIRASTER(ParamTemplate):
             datatype=["$dataType","GPString"],
             parameterType="$paramType",
             direction="$direction",
-            multiValue=$multiValue
+            multiValue=False
         )
 ''')
 
@@ -44,35 +39,31 @@ class ENVIRASTER(ParamTemplate):
         return [Template('$name')]
 
     def default_value(self):
+        # normally, default is: "['GEO-GLOBAL', '', 'GEO', '', 'WGS84', '']"
         return Template('''
-        ${name}.value = "$defaultValue"
+        ${name}.value = 4326
 ''')
 
     def update_parameter(self):
         return Template('')
 
     def pre_execute(self):
+        # sarscapecoordsys itself is a StrArr of length 7
         return Template('''
 
-        path = parameters[self.i${name}].valueAsText
-        if not path is None:
-            input_params['${name}'] = {'url': path, 'factory':'%s' }
-''' % self.envi_factory)
+        strArr = [""] * 7
+        css = parameters[self.i${name}].valueAsText
+        strArr[0] = css.replace("'", '"') 
+        input_params['${name}'] = strArr
+''')
 
     def post_execute(self):
         return Template('''
         if '${name}' in task_results:
-            raster = task_results['${name}']
-            if 'url' in raster:
-                parameters[self.i${name}].value = raster['url']
-            else:
-                # some raster types are not supported, such as ENVISubsetRaster
-                import json
-                messages.addErrorMessage("This task may not be supported: the returned ENVIRaster is of an unexpected dehydrated form: " + json.dumps(raster))
-                raise arcpy.ExecuteError
+            pass
 ''')
 
 
 def template():
     """Returns the template object."""
-    return ENVIRASTER('DERasterDataset')
+    return SARSCAPECOORDSYSARRAY('GPCoordinateSystem')
